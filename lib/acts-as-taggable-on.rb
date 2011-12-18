@@ -3,6 +3,8 @@ require "active_record/version"
 require "action_view"
 RAILS_3 = ::ActiveRecord::VERSION::MAJOR >= 3
 
+require "digest/sha1"
+
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require "acts_as_taggable_on/compatibility/active_record_backports" unless RAILS_3
