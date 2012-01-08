@@ -3,9 +3,6 @@ module ActsAsTaggableOn
     include ActsAsTaggableOn::ActiveRecord::Backports if ::ActiveRecord::VERSION::MAJOR < 3
     include ActsAsTaggableOn::Utils
 
-    cattr_accessor :remove_unused
-    self.remove_unused = false
-     
     attr_accessible :name
 
     ### ASSOCIATIONS:

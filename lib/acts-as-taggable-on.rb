@@ -1,3 +1,5 @@
+$KCODE = 'u'
+
 require "active_record"
 require "active_record/version"
 require "action_view"
@@ -8,6 +10,28 @@ require "digest/sha1"
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require "acts_as_taggable_on/compatibility/active_record_backports" unless RAILS_3
+
+module ActsAsTaggableOn
+  mattr_accessor :delimiter
+  @@delimiter = ','
+
+  mattr_accessor :force_lowercase
+  @@force_lowercase = false
+
+  mattr_accessor :force_parameterize
+  @@force_parameterize = false
+
+  mattr_accessor :remove_unused_tags
+  self.remove_unused_tags = false
+
+  def self.glue
+    @@delimiter.ends_with?(" ") ? @@delimiter : "#{@@delimiter} "
+  end
+
+  def self.setup
+    yield self
+  end
+end
 
 require "acts_as_taggable_on/utils"
 
@@ -35,3 +59,4 @@ end
 if defined?(ActionView::Base)
   ActionView::Base.send :include, ActsAsTaggableOn::TagsHelper
 end
+
