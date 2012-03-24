@@ -5,3 +5,5 @@
 .rvmrc
 Gemfile.lock
 spec/database.yml
+tmp*.sw?
+*.sw?
