@@ -92,12 +92,7 @@ describe ActsAsTaggableOn::Tag do
 
   it "should require a name" do
     @tag.valid?
-
-    if ActiveRecord::VERSION::MAJOR >= 3
-      @tag.errors[:name].should == ["can't be blank"]
-    else
-      @tag.errors[:name].should == "can't be blank"
-    end
+    @tag.errors[:name].should == ["can't be blank", "is too long (maximum is 255 characters)"]
 
     @tag.name = "something"
     @tag.valid?
@@ -107,6 +102,16 @@ describe ActsAsTaggableOn::Tag do
     else
       @tag.errors[:name].should be_nil
     end
+  end
+
+  it "should limit the name length to 255 or less characters" do
+    @tag.name = "fgkgnkkgjymkypbuozmwwghblmzpqfsgjasflblywhgkwndnkzeifalfcpeaeqychjuuowlacmuidnnrkprgpcpybarbkrmziqihcrxirlokhnzfvmtzixgvhlxzncyywficpraxfnjptxxhkqmvicbcdcynkjvziefqzyndxkjmsjlvyvbwraklbalykyxoliqdlreeykuphdtmzfdwpphmrqvwvqffojkqhlzvinqajsxbszyvrqqyzusxranr"
+    @tag.valid?
+    @tag.errors[:name].should == "is too long (maximum is 255 characters)"
+
+    @tag.name = "fgkgnkkgjymkypbuozmwwghblmzpqfsgjasflblywhgkwndnkzeifalfcpeaeqychjuuowlacmuidnnrkprgpcpybarbkrmziqihcrxirlokhnzfvmtzixgvhlxzncyywficpraxfnjptxxhkqmvicbcdcynkjvziefqzyndxkjmsjlvyvbwraklbalykyxoliqdlreeykuphdtmzfdwpphmrqvwvqffojkqhlzvinqajsxbszyvrqqyzusxran"
+    @tag.valid?
+    @tag.errors[:name].should == nil
   end
 
   it "should equal a tag with the same name" do
