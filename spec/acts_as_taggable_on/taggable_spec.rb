@@ -81,8 +81,8 @@ describe "Taggable" do
     @taggables[1].skill_list = "css"
     @taggables.each{|taggable| taggable.save}
     
-    @found_taggables_by_tag = TaggableModel.joins(:tags).where(:tags => {:name => ["bob"]})
-    @found_taggables_by_skill = TaggableModel.joins(:skills).where(:tags => {:name => ["ruby"]})
+    @found_taggables_by_tag = TaggableModel.scoped(:joins => :tags, :conditions => {:tags => {:name => ["bob"]}})
+    @found_taggables_by_skill = TaggableModel.scoped(:joins => :skills, :conditions => {:tags => {:name => ["ruby"]}})
 
     @found_taggables_by_tag.should include @taggables[0]
     @found_taggables_by_tag.should_not include @taggables[1]
@@ -148,7 +148,7 @@ describe "Taggable" do
       TaggableModel.tagged_with("ruby").first.should_not be_readonly
     end
   else
-    xit "should not return read-only records" do
+    it "should not return read-only records" do
       # apparantly, there is no way to set readonly to false in a scope if joins are made
     end
     
