@@ -1,3 +1,5 @@
 = ActsAsTaggableOn
+{<img src="https://secure.travis-ci.org/ledermann/acts-as-taggable-on.png" />}[http://travis-ci.org/ledermann/acts-as-taggable-on]
 
-This is a fork of https://github.com/mbleigh/acts-as-taggable-on with some backports to support Rails 2.3
+
+This is a fork of https://github.com/mbleigh/acts-as-taggable-on with backports to support Rails 2.3.14 using Ruby 1.8.7
